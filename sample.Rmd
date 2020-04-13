@@ -24,12 +24,12 @@ x
 
 
 ```{r}
-exapmle=iris[c(1:4)] 
-vec=vector()
-for(i in 1:length(iris$Sepal.Length)){
-  vec[i] <- mean(t(example[i,])) 
+data=iris[c(1:4)] 
+itog=vector()
+for(i in 1:length(iris$Sepal.Width)){
+  itog[i] = mean(t(data[i,])) 
 }
-vec
+itog
 ```
 
 
