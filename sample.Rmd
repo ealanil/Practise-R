@@ -1,0 +1,162 @@
+---
+title: "Введение в R"
+author: "Зайцева Елена."
+date: '13.04.20 '
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1.Вычислить среднее для каждой колонки таблицы iris, за исключением колонки “Species” и соберите результат в список (list)
+
+
+
+```{r}
+x <- list("a" = mean(iris$Petal.Width), "b" = mean(iris$Sepal.Width), "c" = mean(iris$Petal.Length), "d"=mean(iris$Sepal.Length))
+x
+```
+
+
+
+2.Вычислить среднее для каждой строки, исключив перед этим колонку “Species” и сохраните результат в векторе
+
+
+```{r}
+exapmle=iris[c(1:4)] 
+vec=vector()
+for(i in 1:length(iris$Sepal.Length)){
+  vec[i] <- mean(t(example[i,])) 
+}
+vec
+```
+
+
+
+3.Создайте случайные 1000 нуклеотидов, сохранив их в вектор DNA, посчитайте количество нуклеотидов A и T, их долю от общей длинны ДНК и запишите результат в вектор ‘dna_at
+
+
+
+```{r}
+nuclions <- c( "T", "G", "C" , "A") 
+DNA = nuclions[runif(1000, 1, 5)] 
+DNA1=summary(factor(DNA)) 
+DNA1
+dnaAt=DNA1[-c(2, 3)]
+end=dnaAt/length(DNA) 
+end
+```
+
+
+4. Создайте вектор в котором записан произвольный набор латинских букв длинной не менее 10000 символов и посчитайте количество гласных.
+
+
+
+```{r}
+txt = letters[runif(1000, 1, 26)] 
+txt=factor(letters[runif(1000, 1, 26)])
+txt=summary(txt)[c("o","u","y", "a", "e","i")] 
+txt
+```
+
+
+
+
+5. Отсортируйте все виды в таблице iris по средней длинне лепестков. Результат должен быть фактором с градациями в виде имен видов с правильной последовательностью уровней.
+
+
+
+
+```{r}
+iris
+names(iris)
+iris$Petal.Length
+setosa=c(iris$Petal.Length[1:50])
+setosa
+versicolor=c(iris$Petal.Length[51:100])
+versicolor
+virginica=c(iris$Petal.Length[101:150])
+mean(setosa)
+mean(versicolor)
+mean(virginica)
+Species=c(mean(setosa),mean(versicolor),mean(virginica))
+sort(Species)
+f=factor(sort(Species))
+f
+names(f)<- c("setosa", "versicolor", "virginica")
+f
+```
+
+
+
+6. Напишите функцию для рассчета медианы вектора самостоятельно.
+
+
+
+
+```{r}
+myMedianFuction <- function(x) {
+  z=sort(x)
+  if((length(z)%%2)!=0){
+    result = z[(length(x)/2)+1]
+  }
+  else
+    result = (z[length(x)/2]+z[length(x)/2+1])/2
+  return(result)
+}
+
+```
+
+
+
+
+7. Постройте график зависимости длины чашелистиков от длинны лепестков для каждого вида из таблицы iris
+
+
+
+```{r}
+
+
+iris
+names(iris)
+x=iris$Sepal.Length[1:50]
+y=iris$Petal.Length[1:50]
+plot(x,y,main="Зависимость длины чашелистиков от длинны лепестков для setosa", xlab="Sepal.Length",ylab="$Petal.Length", col="purple")
+x=NULL
+y=NULL
+x=iris$Sepal.Length[51:101]
+y=iris$Petal.Length[51:101]
+plot(x,y,main="Зависимость длины чашелистиков от длинны лепестков для versicolor", xlab="Sepal.Length",ylab="$Petal.Length", col="red")
+x=NULL
+y=NULL
+x=iris$Sepal.Length[101:150]
+y=iris$Petal.Length[101:150]
+plot(x,y,main="Зависимость длины чашелистиков от длинны лепестков для virginica", xlab="Sepal.Length",ylab="$Petal.Length", col="orange")
+x=NULL
+y=NULL
+```
+
+
+
+
+
+8. По данным таблицы ‘diamonds’(пакет ggplot2 ) почитайте среднюю стоимость цены карата для бриллиантов дороже 1000$ для каждой категории яркости (clarity).
+
+
+
+
+```{r}
+library(ggplot2)
+diamonds
+levels(factor(diamonds$clarity))
+x=levels(factor(diamonds$clarity))
+y=vector()
+for (i in 1:length(x)) {
+  y[i]=mean(diamonds$price[(diamonds$price>1000) & diamonds$clarity==x[i]])
+}
+y
+```
+
+
+
