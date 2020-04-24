@@ -10,7 +10,7 @@ summary(data)
 
 data_filtered_1 = data[data$doy > 151 & data$doy < 243,]
 data_filtered_2 = data_filtered_1[data_filtered_1$hour > 19 | data_filtered_1$hour < 7,]
-data_filtered_3 = data_filtered_2[data_filtered_2$in_site_antrop_load == "High",]
+data_filtered_3 = data_filtered_2[data_filtered_2$in_site_antrop_load == "Low",]
 
 
 
